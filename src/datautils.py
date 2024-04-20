@@ -8,7 +8,7 @@ import torch
 from datasets import load_dataset
 from packaging import version
 from tqdm import trange
-from transformers import AutoTokenizer, LlamaTokenizer
+from transformers import AutoTokenizer
 
 
 def set_seed(seed: Optional[int]):
@@ -223,7 +223,7 @@ def get_loaders(
     else:
         # for datasets requiring tokenization
         if "llama" in model_path.lower():
-            tokenizer = LlamaTokenizer.from_pretrained(
+            tokenizer = AutoTokenizer.from_pretrained(
                 model_path, use_fast=use_fast_tokenizer, trust_remote_code=trust_remote_code
             )
 
