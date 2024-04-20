@@ -32,23 +32,3 @@ python main.py $MODEL_PATH $DATASET_PATH \
  
  #--resume
  
- python finetune.py \
-  --base_model $MODEL_PATH \
-  --quant_model $SAVE_PATH \
-  --dataset $DATASET_PATH \
-  --model_seqlen=8192 \
-  --eval_datasets wikitext2 \
-  --nsamples=1024 \
-  --val_size=128 \
-  --lr=1e-5 \
-  --adam_beta1=0.90 \
-  --adam_beta2=0.999 \
-  --epochs=1 \
-  --early_stop=3 \
-  --batch_size=10 \
-  --microbatch_size=4 \
-  --temperature=1.0 \
-  --save $DATA_PATH \
-  --gradient_checkpointing \
-  --amp \
-  --wandb 
