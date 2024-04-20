@@ -1,6 +1,6 @@
 # batch_size and finetune_batch_size must be divisible by number of GPUs
 
-export CUDA_VISIBLE_DEVICES=0,1,2,3,4   # or e.g. 0,1,2,3
+export CUDA_VISIBLE_DEVICES=0,1,2,3
 export MODEL_PATH=Meta-Llama-3-8B-Instruct
 export DATASET_PATH=pajama
 export SAVE_PATH=cat-llama-3-8b-instruct-aqlm
@@ -21,7 +21,7 @@ python main.py $MODEL_PATH $DATASET_PATH \
  --finetune_lr=1e-4 \
  --finetune_adam_beta1=0.90 \
  --finetune_adam_beta2=0.95 \
- --finetune_batch_size=40 \
+ --finetune_batch_size=32 \
  --finetune_max_epochs=10 \
  --finetune_early_stop=3 \
  --finetune_keep_best \

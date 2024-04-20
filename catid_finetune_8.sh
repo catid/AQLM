@@ -1,6 +1,6 @@
 # batch_size and finetune_batch_size must be divisible by number of GPUs
 
-export CUDA_VISIBLE_DEVICES=0,1,2,3,4   # or e.g. 0,1,2,3
+export CUDA_VISIBLE_DEVICES=0,1,2,3
 export MODEL_PATH=Meta-Llama-3-8B-Instruct
 export DATASET_PATH=pajama
 export SAVE_PATH=cat-llama-3-8b-instruct-aqlm
@@ -20,7 +20,7 @@ export WANDB_NAME=aqlm8
   --adam_beta2=0.999 \
   --epochs=1 \
   --early_stop=3 \
-  --batch_size=10 \
+  --batch_size=8 \
   --microbatch_size=4 \
   --temperature=1.0 \
   --save $DATA_PATH \
