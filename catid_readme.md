@@ -33,7 +33,7 @@ Enter HF API key here from https://huggingface.co/settings/tokens and download t
 ```bash
 pip install huggingface_hub[hf_transfer]
 export HF_HUB_ENABLE_HF_TRANSFER=1
-huggingface-cli download meta-llama/Meta-Llama-3-8B-Instruct
+huggingface-cli download meta-llama/Meta-Llama-3-8B-Instruct --local-dir Meta-Llama-3-8B-Instruct
 ```
 
 Enter WandB API key here from https://wandb.ai/authorize
