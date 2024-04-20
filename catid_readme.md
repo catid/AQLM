@@ -2,10 +2,14 @@
 
 Set up system:
 
+I used runpod with 4x H100 GPUs.  Configure disk space to be 1024GB for workspace and container.  Enter the web terminal:
+
 ```bash
 apt update
 apt install git-lfs vim htop tmux -y
+```
 
+```
 mkdir -p ~/miniconda3
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
 bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
@@ -46,4 +50,10 @@ Quantize 8B model:
 
 ```bash
 ./catid_quantize_8.sh
+```
+
+Fine-tune 8B model for one epoch
+
+```bash
+./catid_finetune_8.sh
 ```
