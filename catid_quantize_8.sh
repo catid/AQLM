@@ -1,4 +1,4 @@
-# finetune_batch_size must be divisible by number of GPUs
+# batch_size and finetune_batch_size must be divisible by number of GPUs
 
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4   # or e.g. 0,1,2,3
 export MODEL_PATH=Meta-Llama-3-8B-Instruct
@@ -13,19 +13,19 @@ python main.py $MODEL_PATH $DATASET_PATH \
  --nsamples=1024 \
  --val_size=128 \
  --model_seqlen=8192 \
- --num_codebooks=1 \
+ --num_codebooks=2 \
  --nbits_per_codebook=16 \
  --in_group_size=8 \
  --out_group_size=1 \
- --relative_mse_tolerance=0.01 \
+ --relative_mse_tolerance=0.001 \
  --finetune_lr=1e-4 \
  --finetune_adam_beta1=0.90 \
- --finetune_adam_beta2=0.999 \
+ --finetune_adam_beta2=0.95 \
  --finetune_batch_size=40 \
  --finetune_max_epochs=10 \
  --finetune_early_stop=3 \
  --finetune_keep_best \
- --local_batch_size=1 \
+ --local_batch_size=4 \
  --offload_activations \
  --wandb \
  --save $SAVE_PATH
@@ -45,8 +45,8 @@ python main.py $MODEL_PATH $DATASET_PATH \
   --adam_beta2=0.999 \
   --epochs=1 \
   --early_stop=3 \
-  --batch_size=8 \
-  --microbatch_size=1 \
+  --batch_size=10 \
+  --microbatch_size=4 \
   --temperature=1.0 \
   --save $DATA_PATH \
   --gradient_checkpointing \
