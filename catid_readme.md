@@ -2,7 +2,7 @@
 
 Set up system:
 
-I used https://runpod.io with 4x H100 GPUs ($20/hr).  The scripts require 1, 2, 4, or 8 GPUs to evenly divide the batch sizes it uses.  Configure disk space to be 1024GB for workspace and container.  Enter the web terminal:
+I used https://runpod.io with 4 x H100 80GB SXM5 ($20/hr).  The scripts require 1, 2, 4, or 8 GPUs to evenly divide the batch sizes it uses.  Configure disk space to be 1024GB for workspace and container.  Enter the web terminal:
 
 ```bash
 apt update
