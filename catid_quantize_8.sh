@@ -1,3 +1,5 @@
+# finetune_batch_size must be divisible by number of GPUs
+
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4   # or e.g. 0,1,2,3
 export MODEL_PATH=Meta-Llama-3-8B-Instruct
 export DATASET_PATH=pajama
@@ -14,7 +16,7 @@ python main.py $MODEL_PATH $DATASET_PATH \
  --nbits_per_codebook=16 \
  --in_group_size=8 \
  --relative_mse_tolerance=0.01 \
- --finetune_batch_size=32 \
+ --finetune_batch_size=40 \
  --finetune_max_epochs=10 \
  --finetune_early_stop=3 \
  --finetune_keep_best \

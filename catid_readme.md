@@ -4,7 +4,7 @@ Set up system:
 
 ```bash
 apt update
-apt install git-lfs vim tmux -y
+apt install git-lfs vim htop tmux -y
 
 mkdir -p ~/miniconda3
 wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
