@@ -36,6 +36,12 @@ export HF_HUB_ENABLE_HF_TRANSFER=1
 huggingface-cli download meta-llama/Meta-Llama-3-8B-Instruct
 ```
 
+Enter WandB API key here from https://wandb.ai/authorize
+
+```bash
+wandb login
+```
+
 Quantize 8B model:
 
 ```bash

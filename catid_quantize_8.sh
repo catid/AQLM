@@ -1,9 +1,11 @@
-export CUDA_VISIBLE_DEVICES=0,1   # or e.g. 0,1,2,3
-export MODEL_PATH=/home/catid/models/Meta-Llama-3-8B-Instruct
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4   # or e.g. 0,1,2,3
+export MODEL_PATH=/root/.cache/huggingface/hub/models--meta-llama--Meta-Llama-3-8B-Instruct/
 export DATASET_PATH=pajama
-export SAVE_PATH=/home/catid/models/cat-llama-3-8b-instruct-aqlm
+export SAVE_PATH=cat-llama-3-8b-instruct-aqlm
 export WANDB_PROJECT=aqlm
 export WANDB_NAME=aqlm8
+
+mkdir -p $SAVE_PATH
 
 python main.py $MODEL_PATH $DATASET_PATH \
  --nsamples=1024 \
