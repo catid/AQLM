@@ -1,5 +1,5 @@
 export MODEL_PATH=Meta-Llama-3-8B-Instruct
-export SAVE_PATH=cat-llama-3-8b-instruct-aqlm-save
+export SAVE_PATH=cat-llama-3-8b-instruct-aqlm-finetune
 export OUT_PATH=cat-llama-3-8b-instruct-aqlm
 export HF_USERNAME=catid
 

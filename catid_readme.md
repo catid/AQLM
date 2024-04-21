@@ -58,10 +58,17 @@ Quantize 8B model (takes about 16 hours, costing $500):
 ./catid_quantize_8.sh
 ```
 
-Fine-tune 8B model for one epoch
+Fine-tune 8B model for one epoch:
 
 ```bash
 ./catid_finetune_8.sh
+```
+
+Evaluate 8B model:
+
+```bash
+pip install -r lm-evaluation-harness/requirements.txt
+./catid_eval_8.sh
 ```
 
 You should already be authenticated with HuggingFace.
