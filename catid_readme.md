@@ -1,5 +1,11 @@
 # Repro instructions
 
+You will need access to the Meta-Llama-3-8B-Instruct model.  You can get access here: https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct  After you have access, continue with the instructions below.
+
+Create a new write token here for uploading later: https://huggingface.co/settings/tokens?new_token=true
+
+Fork these scripts and modify the variables at the top of all the scripts to use your own paths.
+
 Set up system:
 
 I used https://runpod.io with 4 x H100 80GB SXM5 ($20/hr).  The scripts require 1, 2, 4, or 8 GPUs to evenly divide the batch sizes it uses.  Configure disk space to be 1024GB for workspace and container.  Enter the web terminal:
@@ -32,9 +38,7 @@ pip install -U -r requirements.txt
 huggingface-cli login
 ```
 
-Create a new write token here: https://huggingface.co/settings/tokens?new_token=true
-
-Enter HF API key here from https://huggingface.co/settings/tokens and download the 8B model fast (we are paying per minute here):
+Enter HF write token API key here from https://huggingface.co/settings/tokens and download the 8B model fast (we are paying per minute here):
 
 ```bash
 pip install huggingface_hub[hf_transfer]
@@ -65,4 +69,9 @@ You should already be authenticated with HuggingFace.
 ```bash
 pip install aqlm[gpu]
 ./catid_upload_8.sh
+```
+
+Add this text to your model card to comply with Meta license:
+```
+AI Model Name: Llama 3 8B "Built with Meta Llama 3" https://llama.meta.com/llama3/license/
 ```
