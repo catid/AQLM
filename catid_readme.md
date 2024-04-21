@@ -80,6 +80,8 @@ You should already be authenticated with HuggingFace.
 
 ```bash
 pip install aqlm[gpu]
+
+export HF_HUB_ENABLE_HF_TRANSFER=1
 ./catid_upload_8.sh
 ```
 
@@ -89,9 +91,8 @@ You have to add your SSH key `ssh-keygen -t ed25519` (if needed) and `cat ~/.ssh
 
 ```bash
 export HF_USERNAME=catid
-export HF_MODEL=cat-llama-3-8b-instruct-aqlm-noft
+export HF_MODEL=cat-llama-3-8b-instruct-aqlm
 export ORIG_MODEL=Meta-Llama-3-8B-Instruct
-
 GIT_LFS_SKIP_SMUDGE=1 git clone git@hf.co:$HF_USERNAME/$HF_MODEL
 cp $ORIG_MODEL/generation_config.json $HF_MODEL/
 cp $ORIG_MODEL/tokenizer* $HF_MODEL/
@@ -115,7 +116,7 @@ Make sure the `generation_config.json` file contains the 128009 `eos_token_id` w
 }
 ```
 
-Add this text to your model card to comply with Meta license:
+Add this text to your README.md (model card) to comply with Meta license:
 ```
 AI Model Name: Llama 3 8B "Built with Meta Llama 3" https://llama.meta.com/llama3/license/
 ```
@@ -164,6 +165,13 @@ accelerate launch -m lm_eval --model hf \
     --model_args pretrained=catid/cat-llama-3-8b-instruct-aqlm-noft \
     --tasks lambada_openai,arc_easy \
     --batch_size 16
+
+|    Tasks     |Version|Filter|n-shot|  Metric  |Value |   |Stderr|
+|--------------|------:|------|-----:|----------|-----:|---|-----:|
+|lambada_openai|      1|none  |     0|perplexity|3.0949|±  |0.0762|
+|              |       |none  |     0|acc       |0.7229|±  |0.0062|
+|arc_easy      |      1|none  |     0|acc       |0.8152|±  |0.0080|
+|              |       |none  |     0|acc_norm  |0.7866|±  |0.0084|
 ```
 
 AQLM quantization with global fine-tuning results:
@@ -173,4 +181,11 @@ accelerate launch -m lm_eval --model hf \
     --model_args pretrained=catid/cat-llama-3-8b-instruct-aqlm \
     --tasks lambada_openai,arc_easy \
     --batch_size 16
+
+|    Tasks     |Version|Filter|n-shot|  Metric  |Value |   |Stderr|
+|--------------|------:|------|-----:|----------|-----:|---|-----:|
+|lambada_openai|      1|none  |     0|perplexity|3.0949|±  |0.0762|
+|              |       |none  |     0|acc       |0.7229|±  |0.0062|
+|arc_easy      |      1|none  |     0|acc       |0.8152|±  |0.0080|
+|              |       |none  |     0|acc_norm  |0.7866|±  |0.0084|
 ```
