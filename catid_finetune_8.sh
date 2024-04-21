@@ -22,10 +22,9 @@ export WANDB_NAME=aqlm8
   --epochs=1 \
   --early_stop=3 \
   --batch_size=8 \
-  --microbatch_size=4 \
+  --microbatch_size=1 \
   --save $FINETUNE_PATH \
   --gradient_checkpointing \
   --offload_activations \
-  --device_map auto \
   --amp \
   --wandb 
