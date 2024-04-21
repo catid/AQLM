@@ -4,6 +4,7 @@ export CUDA_VISIBLE_DEVICES=0,1,2,3
 export MODEL_PATH=Meta-Llama-3-8B-Instruct
 export DATASET_PATH=pajama
 export SAVE_PATH=cat-llama-3-8b-instruct-aqlm-save
+export FINETUNE_PATH=cat-llama-3-8b-instruct-aqlm-finetune
 export WANDB_PROJECT=aqlm
 export WANDB_NAME=aqlm8
 
@@ -23,7 +24,7 @@ export WANDB_NAME=aqlm8
   --batch_size=8 \
   --microbatch_size=4 \
   --temperature=1.0 \
-  --save $DATA_PATH \
+  --save $FINETUNE_PATH \
   --gradient_checkpointing \
   --amp \
   --wandb 
