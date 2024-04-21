@@ -28,3 +28,6 @@ export WANDB_NAME=aqlm8
   --offload_activations \
   --amp \
   --wandb 
+
+# Suggested by @Godofnothing
+#  --finetune_dtype=bfloat16 \
