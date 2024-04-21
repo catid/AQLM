@@ -3,7 +3,7 @@
 export CUDA_VISIBLE_DEVICES=0,1,2,3
 export MODEL_PATH=Meta-Llama-3-8B-Instruct
 export DATASET_PATH=pajama
-export SAVE_PATH=cat-llama-3-8b-instruct-aqlm
+export SAVE_PATH=cat-llama-3-8b-instruct-aqlm-save
 export WANDB_PROJECT=aqlm
 export WANDB_NAME=aqlm8
 
