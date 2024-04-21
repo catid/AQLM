@@ -46,7 +46,7 @@ Enter WandB API key here from https://wandb.ai/authorize
 wandb login
 ```
 
-Quantize 8B model:
+Quantize 8B model (takes about 16 hours, costing $500):
 
 ```bash
 ./catid_quantize_8.sh
