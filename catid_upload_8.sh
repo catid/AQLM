@@ -1,3 +1,10 @@
+export MODEL_PATH=Meta-Llama-3-8B-Instruct
+export SAVE_PATH=cat-llama-3-8b-instruct-aqlm-save
 export OUT_PATH=cat-llama-3-8b-instruct-aqlm
+export HF_USERNAME=catid
 
-huggingface-cli upload --repo-type model catid/$OUT_PATH $OUT_PATH
+mkdir -p $OUT_PATH
+
+python convert_to_hf.py --save_safetensors $MODEL_PATH $SAVE_PATH $OUT_PATH 
+
+huggingface-cli upload --repo-type model $HF_USERNAME/$OUT_PATH $OUT_PATH

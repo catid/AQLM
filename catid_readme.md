@@ -32,6 +32,8 @@ pip install -U -r requirements.txt
 huggingface-cli login
 ```
 
+Create a new write token here: https://huggingface.co/settings/tokens?new_token=true
+
 Enter HF API key here from https://huggingface.co/settings/tokens and download the 8B model fast (we are paying per minute here):
 
 ```bash
@@ -56,4 +58,11 @@ Fine-tune 8B model for one epoch
 
 ```bash
 ./catid_finetune_8.sh
+```
+
+You should already be authenticated with HuggingFace.
+
+```bash
+pip install aqlm[gpu]
+./catid_upload_8.sh
 ```
