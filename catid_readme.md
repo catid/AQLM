@@ -2,7 +2,9 @@
 
 You will need access to the Meta-Llama-3-8B-Instruct model.  You can get access here: https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct  After you have access, continue with the instructions below.
 
-Create a new write token here for uploading later: https://huggingface.co/settings/tokens?new_token=true
+Set up a https://wandb.ai/ account for monitoring.
+
+Create a new HuggingFace WRITE token for uploading later: https://huggingface.co/settings/tokens?new_token=true
 
 Fork these scripts and modify the variables at the top of all the scripts to use your own paths.
 
@@ -38,7 +40,7 @@ pip install -U -r requirements.txt
 huggingface-cli login
 ```
 
-Enter HF write token API key here from https://huggingface.co/settings/tokens and download the 8B model fast (we are paying per minute here):
+Enter HuggingFace WRITE token from https://huggingface.co/settings/tokens and download the 8B model fast (we are paying per minute here):
 
 ```bash
 pip install huggingface_hub[hf_transfer]
@@ -46,25 +48,25 @@ export HF_HUB_ENABLE_HF_TRANSFER=1
 huggingface-cli download meta-llama/Meta-Llama-3-8B-Instruct --local-dir Meta-Llama-3-8B-Instruct
 ```
 
-Enter WandB API key here from https://wandb.ai/authorize
+Enter WandB API key from https://wandb.ai/authorize
 
 ```bash
 wandb login
 ```
 
-Quantize 8B model (takes about 16 hours, costing $500):
+Quantize 8B model (takes about 16 hours, costing ~$400).  This uses all 4 GPUs.
 
 ```bash
 ./catid_quantize_8.sh
 ```
 
-Fine-tune 8B model for one epoch:
+Global fine-tune 8B model for one epoch (takes about 1 hour).  This uses just one GPU.
 
 ```bash
 ./catid_finetune_8.sh
 ```
 
-Evaluate 8B model:
+Evaluate 8B model.  This uses just one GPU.
 
 ```bash
 pip install -r lm-evaluation-harness/requirements.txt
@@ -82,3 +84,5 @@ Add this text to your model card to comply with Meta license:
 ```
 AI Model Name: Llama 3 8B "Built with Meta Llama 3" https://llama.meta.com/llama3/license/
 ```
+
+My results are uploaded here: https://huggingface.co/catid/cat-llama-3-8b-instruct-aqlm
