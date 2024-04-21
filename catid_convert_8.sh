@@ -8,5 +8,4 @@ export OUT_PATH=cat-llama-3-8b-instruct-aqlm-hf
 
 mkdir -p $OUT_PATH
 
-python convert_to_hf.py --model $MODEL_PATH --in_path $SAVE_PATH --out_path $OUT_PATH
- 
+python convert_to_hf.py --save_safetensors $MODEL_PATH $SAVE_PATH $OUT_PATH 
