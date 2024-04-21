@@ -66,10 +66,13 @@ Global fine-tune 8B model for one epoch (takes about 1 hour).  This uses just on
 ./catid_finetune_8.sh
 ```
 
-Evaluate 8B model.  This uses just one GPU.
+This calculates perplexity on wikitext2 dataset.  My result: `7.5590`
+
+Evaluate 8B model (takes about 1 hour).  This uses all 4 GPUs.
 
 ```bash
 pip install -r lm-evaluation-harness/requirements.txt
+pip install sqlitedict sacrebleu scikit-learn omegaconf pycountry rouge_score
 ./catid_eval_8.sh
 ```
 
@@ -80,9 +83,94 @@ pip install aqlm[gpu]
 ./catid_upload_8.sh
 ```
 
+You then need to add the missing files to the repo.  You should do this on your own Linux server instead of the expensive one.
+
+You have to add your SSH key `ssh-keygen -t ed25519` (if needed) and `cat ~/.ssh/id_ed25519.pub` on the machine from https://huggingface.co/settings/keys/add?type=ssh
+
+```bash
+export HF_USERNAME=catid
+export HF_MODEL=cat-llama-3-8b-instruct-aqlm-noft
+export ORIG_MODEL=Meta-Llama-3-8B-Instruct
+
+GIT_LFS_SKIP_SMUDGE=1 git clone git@hf.co:$HF_USERNAME/$HF_MODEL
+cp $ORIG_MODEL/generation_config.json $HF_MODEL/
+cp $ORIG_MODEL/tokenizer* $HF_MODEL/
+cp $ORIG_MODEL/special_tokens_map.json $HF_MODEL/
+
+cd $HF_MODEL
+git add *
+git commit -m "Add files from $ORIG_MODEL"
+git push
+cd ..
+```
+
+Make sure the `generation_config.json` file contains the 128009 `eos_token_id` which the original Meta release failed to include:
+
+```
+{
+  "_from_model_config": true,
+  "bos_token_id": 128000,
+  "eos_token_id": [128001, 128009],
+  "transformers_version": "4.40.0.dev0"
+}
+```
+
 Add this text to your model card to comply with Meta license:
 ```
 AI Model Name: Llama 3 8B "Built with Meta Llama 3" https://llama.meta.com/llama3/license/
 ```
 
-My results are uploaded here: https://huggingface.co/catid/cat-llama-3-8b-instruct-aqlm
+My results are uploaded here: https://huggingface.co/catid/cat-llama-3-8b-instruct-aqlm-noft (before global fine-tuning) and https://huggingface.co/catid/cat-llama-3-8b-instruct-aqlm (after global fine-tuning)
+
+Offline evaluation:
+
+```bash
+git clone https://github.com/EleutherAI/lm-evaluation-harness
+cd lm-evaluation-harness
+
+conda create -n lmeval python=3.10 -y && conda activate lmeval
+pip install -e .
+
+pip install huggingface_cli
+huggingface-cli login
+
+# Use all GPUs for evaluation (if model fits on a single GPU):
+# See other ways in the README: https://github.com/EleutherAI/lm-evaluation-harness
+
+accelerate launch -m lm_eval --model hf \
+    --model_args pretrained=meta-llama/Meta-Llama-3-8B-Instruct \
+    --tasks lambada_openai,arc_easy \
+    --batch_size 16
+```
+
+Baseline results:
+
+```
+hf (pretrained=meta-llama/Meta-Llama-3-8B-Instruct), gen_kwargs: (None), limit: None, num_fewshot: None, batch_size: 16
+|    Tasks     |Version|Filter|n-shot|  Metric  |Value |   |Stderr|
+|--------------|------:|------|-----:|----------|-----:|---|-----:|
+|lambada_openai|      1|none  |     0|perplexity|3.1070|±  |0.0771|
+|              |       |none  |     0|acc       |0.7174|±  |0.0063|
+|arc_easy      |      1|none  |     0|acc       |0.8140|±  |0.0080|
+|              |       |none  |     0|acc_norm  |0.7971|±  |0.0083|
+```
+
+AQLM quantization without global fine-tuning results:
+
+```
+pip install aqlm"[gpu,cpu]"
+
+accelerate launch -m lm_eval --model hf \
+    --model_args pretrained=catid/cat-llama-3-8b-instruct-aqlm-noft \
+    --tasks lambada_openai,arc_easy \
+    --batch_size 16
+```
+
+AQLM quantization with global fine-tuning results:
+
+```
+accelerate launch -m lm_eval --model hf \
+    --model_args pretrained=catid/cat-llama-3-8b-instruct-aqlm \
+    --tasks lambada_openai,arc_easy \
+    --batch_size 16
+```
