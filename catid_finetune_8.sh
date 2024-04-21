@@ -23,7 +23,6 @@ export WANDB_NAME=aqlm8
   --early_stop=3 \
   --batch_size=8 \
   --microbatch_size=4 \
-  --temperature=1.0 \
   --save $FINETUNE_PATH \
   --gradient_checkpointing \
   --amp \
