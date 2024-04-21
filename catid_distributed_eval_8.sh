@@ -1,3 +1,4 @@
+rm -rf test
 mkdir test
 cd test
 
